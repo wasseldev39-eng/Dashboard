@@ -3,73 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title> Dashboard </title>
+    <title>واصل 2026 - لوحة التحكم</title>
     <style>
         body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
+            margin: 0; padding: 0;
+            height: 100%; width: 100%;
             overflow: hidden;
-            background-color: #f4f7f6;
+            background-color: #0f0c29; /* لون غامق ليتناسب مع هوية واصل */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        .container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
+        .container { position: relative; width: 100%; height: 100%; }
 
         iframe {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             border: none;
+            opacity: 0; /* مخفي حتى يكتمل التحميل */
+            transition: opacity 0.5s ease;
         }
 
         .loading-screen {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            z-index: -1;
+            z-index: 10;
         }
 
         .loader {
-            border: 5px solid #f3f3f3;
+            border: 5px solid rgba(255,255,255,0.1);
             border-top: 5px solid #6a1b9a;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 60px; height: 60px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 10px;
+            margin: 0 auto 20px;
         }
 
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        p { color: white; font-weight: bold; font-size: 1.1em; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="loading-screen">
+        <div id="loader-screen" class="loading-screen">
             <div class="loader"></div>
-            <p style="color: #6a1b9a; font-weight: bold;">جاري فتح نظام واصل...</p>
+            <p>جاري تشغيل نظام واصل...</p>
         </div>
         
         <iframe 
-            src=https://script.google.com/macros/s/AKfycbxLtsgIpAUBHkvtixGv4hbwNVItLzMoLth-CdEF79mLLenRG5f2E7D-lNEbVAIf_Q/exec" 
+            id="wassel-iframe"
+            src="https://script.google.com/macros/s/AKfycbxLtsgIpAUBHkvtixGv4hbwNVItLzMoLth-CdEF79mLLenRG5f2E7D-lNEbVAIf_Q/exec" 
             allowfullscreen="true"
             allow="geolocation; microphone; camera; display-capture"
-            title="Wassel System">
-        </iframe>
+            title="Wassel System"
+            onload="hideLoader()"> </iframe>
     </div>
 
-</body>q
+    <script>
+        function hideLoader() {
+            // إخفاء شاشة التحميل وإظهار النظام بسلاسة
+            document.getElementById('loader-screen').style.display = 'none';
+            document.getElementById('wassel-iframe').style.opacity = '1';
+        }
+    </script>
+</body>
 </html>
